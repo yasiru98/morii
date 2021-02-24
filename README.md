@@ -11,7 +11,7 @@ An interactive web based platform aimed at visually and emotionally telling stor
 Create a space for users to hold memories and the feelings associated with them in a collaborative space.
 Enable users to overcome communication barriers by visually representing stories that may otherwise go untold. 
 
-## Secondary
+## Secondary Goals
 Connect users in their shared experiences and allow for memories to evolve from multiple perspectives.
 Provide a method for processing emotions and further understanding ourselves as people.
 
