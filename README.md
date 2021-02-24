@@ -16,4 +16,8 @@ Connect users in their shared experiences and allow for memories to evolve from 
 Provide a method for processing emotions and further understanding ourselves as people.
 
 ## Using
-Provide a method for processing emotions and further understanding ourselves as people.
+* Language recognition
+* Generate visuals
+* User input to change visual
+* Immersive input/output
+
