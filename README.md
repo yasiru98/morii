@@ -20,4 +20,4 @@ Provide a method for processing emotions and further understanding ourselves as 
 * Generate visuals - https://threejs.org/
 * User input to change visual
 * Immersive input/output
-
+* https://www.ibm.com/cloud/cloudant
