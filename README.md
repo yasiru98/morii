@@ -16,8 +16,8 @@ Connect users in their shared experiences and allow for memories to evolve from 
 Provide a method for processing emotions and further understanding ourselves as people.
 
 ## Using
-* Language recognition
-* Generate visuals
+* Language recognition - https://cloud.google.com/natural-language
+* Generate visuals - https://threejs.org/
 * User input to change visual
 * Immersive input/output
 
