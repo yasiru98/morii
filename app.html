@@ -1,0 +1,43 @@
+<html lang="en" class="home-bg">
+<head>
+  <meta charset="utf-8"/>
+  <title>Morii</title>
+  <link rel="shortcut icon" href="hosted/img/favicon.png"/>
+  <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet">
+</head>
+<script>
+    function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        }else {
+            x.style.display = "block";
+        }
+    }
+</script>
+<body>
+    <div class="container">
+        <!-- <div class="nav"> -->
+            <div id="myLinks">
+                <a href="index.html">Home</a>
+                <a href="#about">About</a>
+            </div>
+            <a class="icon" onclick="myFunction()">
+                <i class="fas fa-bars"></i>
+            </a>
+            <div class="search-container">
+                <form>
+                    <input type="text" placeholder="Search.." name="search" id="search">
+                    <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <h1 id="header">Morii</h1>
+            <button id="add-button">Add a memorii</button>
+        <!-- </div> -->
+    </div>
+    
+</body>
+
+</html>
