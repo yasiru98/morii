@@ -10,10 +10,17 @@
 </head>
 <body >
     <div class="container">
-    <h1 class="title">Morii</h1>
-    <h4 class="quote">“Life can only be understood backwards, but it must be lived forwards.” – Søren Kierkegaard</h4>
-    <a href="app.html" ><button class="button">Get Started &#8594; </button></a>
-    <p class="login">Have an account? <a href="app.html">Log In</a></p>
+      <h1 class="title">Morii</h1>
+      <div class="login-container">
+        <form>
+            <label for="uname">Username:</label><br>
+            <input type="text" placeholder="Username" name="username" id="user">
+            <label for="upass">Password:</label><br>
+            <input type="text" placeholder="Password" name="pass" id="pass">
+            <!-- <button type="submit" id="login-button"></button> -->
+        </form>
+      </div>
+      <a href="app.html"><button  id="login-button">Log In</button></a>
     </div>
     
 </body>

@@ -3,10 +3,10 @@
     grid-template-columns: repeat(14, 112px);
     grid-template-rows: 1fr 1fr 100px auto;
     column-gap: 32px;
-   
+   justify-items: center;
     
 }
-/* Login page */
+/* Start page */
 .title{
     font-family: 'ABeeZee', sans-serif;
     font-size: 100px;
@@ -48,6 +48,22 @@ a .button{
     font-size: small;
     font-family: 'Be Vietnam', sans-serif;
     font-weight: bold;
+}
+/* Login page */
+.login-container{
+    justify-items: center;
+    grid-row: 3;
+    grid-column: 7/ span 2;
+}
+#login-button{
+    grid-row: 4;
+    grid-column: 7/ span 2;
+    width: auto;
+    height: auto;
+    padding: 5px;
+    background-color: transparent;
+    border: 1px solid grey;
+    border-radius: 15px;
 }
 /* Background Img */
 body {
