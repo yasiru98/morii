@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'MORII TEST PAGE',
   props: {
     msg: String
   }
