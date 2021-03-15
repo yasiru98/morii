@@ -1,5 +1,24 @@
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
     ? '/MORII/'
-    : '/'
+    : '/',
+
+    transpileDependencies: [
+      'vuetify'
+    ],
+
+    pages: {
+      'index': {
+        entry: './src/pages/Splash/main.js',
+        template: 'public/index.html',
+        title: 'Splash',
+        chunks: [ 'chunk-vendors', 'chunk-common', 'index' ]
+      },
+      'login': {
+        entry: './src/pages/Login/main.js',
+        template: 'public/login.html',
+        title: 'Login',
+        chunks: [ 'chunk-vendors', 'chunk-common', 'login' ]
+      },
+    }
 }
