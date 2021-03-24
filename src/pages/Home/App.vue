@@ -7,10 +7,10 @@
   <v-main>
    <section>
      
-         <v-app-bar  outlined flat height="100">
-         <v-btn sm text color="black" href=""><v-icon left></v-icon></v-btn>
+         <v-app-bar elevation="1" height="100" color="white">
+         <v-btn sm text color="black" href="" disabled><v-icon left></v-icon></v-btn>
           <v-toolbar-title class="black--text">morii</v-toolbar-title>
-          <v-btn sm text color="black" href=""><v-icon left></v-icon></v-btn>
+          <v-btn sm text color="black" href="" disabled><v-icon left></v-icon></v-btn>
           <v-btn sm text href="#js" color="black"> add a new memorii +</v-btn>
           <v-spacer></v-spacer>
          
@@ -27,7 +27,7 @@
             <v-btn sm text href="#js" color="black"> <v-icon>mdi-web</v-icon></v-btn>
             <v-btn sm text href="#unity" color="black"><v-icon>mdi-bell-outline</v-icon></v-btn>
              <v-btn sm text color="black" href="#contact"><v-icon> mdi-account-outline </v-icon></v-btn>
-            <v-btn sm text color="black" href=""><v-icon left></v-icon></v-btn>
+            <v-btn sm text color="black" href="" disabled><v-icon left></v-icon></v-btn>
           </v-toolbar-items> 
           
       </v-app-bar>
