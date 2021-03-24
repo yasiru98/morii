@@ -1,6 +1,8 @@
 
 <template>
   <v-app>
+
+
   <v-main>
    <section>
    
@@ -25,7 +27,7 @@
             <!-- <button type="submit" id="login-button"></button> -->
         </form>
       </div>
-      <a href="app.html"><button  id="login-button">Log In</button></a>
+      <a href="home.html"><button  id="login-button">Log In</button></a>
           </v-layout>
          </div>
         </v-img>

@@ -20,5 +20,11 @@ module.exports = {
         title: 'Login',
         chunks: [ 'chunk-vendors', 'chunk-common', 'login' ]
       },
+      'home': {
+        entry: './src/pages/Home/main.js',
+        template: 'public/home.html',
+        title: 'Home',
+        chunks: [ 'chunk-vendors', 'chunk-common', 'home' ]
+      },
     }
 }
