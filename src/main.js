@@ -2,8 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from '@/plugins/vuetify';
 import VueRouter from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+
+// Import components for routing
+import Splash from '@/components/Splash.vue'
 import Login from '@/components/Login.vue'
+import Home from '@/components/Home.vue'
+import AddMorii from '@/components/AddMorii.vue'
 
 Vue.use(VueRouter)
 Vue.config.productionTip = false
@@ -12,9 +16,9 @@ Vue.config.productionTip = false
 // and then call `Vue.use(VueRouter)`.
 
 // 1. Define route components.
-// These can be imported from other files
+// These can be imported from other files(Imported above)
 
-//const Bar = { template: '<div>bar</div>' }
+
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -22,9 +26,10 @@ Vue.config.productionTip = false
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
 const routes = [ 
-  { path: '/', component: Login },
-  { path: '/foo', component: HelloWorld },
- 
+  { path: '/', component: Splash},
+  { path: '/login', component: Login },
+  { path: '/Home', component: Home },
+  { path: '/AddMorii', component: AddMorii }
 ]
 
 // 3. Create the router instance and pass the `routes` option
