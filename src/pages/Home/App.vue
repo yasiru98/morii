@@ -11,7 +11,7 @@
          <v-btn sm text color="black" href="" disabled><v-icon left></v-icon></v-btn>
           <v-toolbar-title class="black--text">morii</v-toolbar-title>
           <v-btn sm text color="black" href="" disabled><v-icon left></v-icon></v-btn>
-          <v-btn sm text href="#js" color="black"> add a new memorii +</v-btn>
+          <v-btn sm text href="addmorii.html" color="black"> add a new memorii +</v-btn>
           <v-spacer></v-spacer>
          
             <v-text-field
@@ -43,6 +43,7 @@
           >
          
             <div id="name"><h1 class="display-1 text-center" >Three.JS</h1></div>
+           
              <div class="login-container">
 
       </div>
@@ -62,14 +63,13 @@
 
 export default {
   name: 'Login',
+   props: [],
 
   components: {
-    
+
   },
 
   data: () => ({
-    //
-
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth,
 

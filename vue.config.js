@@ -26,5 +26,11 @@ module.exports = {
         title: 'Home',
         chunks: [ 'chunk-vendors', 'chunk-common', 'home' ]
       },
+      'addmorii': {
+        entry: './src/pages/AddMorii/main.js',
+        template: 'public/addmorii.html',
+        title: 'AddMorii',
+        chunks: [ 'chunk-vendors', 'chunk-common', 'addmorii' ]
+      },
     }
 }
