@@ -2,7 +2,7 @@
 node_modules
 /dist
 
-
+/.ssh
 # local env files
 .env.local
 .env.*.local
