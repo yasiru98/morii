@@ -7,15 +7,18 @@
     <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" >
+     <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.min.js" integrity="sha512-bzjaf85dHTL4H0BvkAJ/Jbvxqf1rDj+jVpCNe3oxQj/RXSnkx1HnKhqIcmMWghxEAbXsYgddrc38saWpltlkug==" crossorigin="anonymous"></script>
 </head>
 <body >
-    <div class="container">
+    <div class="app">
       <h1 class="title">Morii</h1>
       <div class="login-container">
         <form>
-            <label for="uname">Username:</label><br>
+            <label for="uname" id="username">Username:</label><br>
             <input type="text" placeholder="Username" name="username" id="user">
-            <label for="upass">Password:</label><br>
+            <label for="upass" id="userpass">Password:</label><br>
             <input type="text" placeholder="Password" name="pass" id="pass">
             <!-- <button type="submit" id="login-button"></button> -->
         </form>
