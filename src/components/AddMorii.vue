@@ -23,7 +23,7 @@
           ></v-text-field>
 
 
-          <v-btn href="home.html" v-on:click="submit" id="submitStory" sm text  color="black">Done</v-btn>
+          <router-link to="/Home"><v-btn href="home.html" v-on:click="submit" id="submitStory" sm text  color="black">Done</v-btn></router-link>
         </v-layout>
          </div>
       
