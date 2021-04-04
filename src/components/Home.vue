@@ -5,7 +5,7 @@
          <v-btn sm text color="black" href="" disabled><v-icon left></v-icon></v-btn>
           <v-toolbar-title class="black--text">morii</v-toolbar-title>
           <v-btn sm text color="black" href="" disabled><v-icon left></v-icon></v-btn>
-          <router-link to="/AddMorii"><v-btn sm text color="black">add a new memorii +</v-btn></router-link> 
+          <router-link to="/addmorii/addmedia"><v-btn sm text color="black">add a new memorii +</v-btn></router-link> 
           <v-spacer></v-spacer>
          
             <v-text-field

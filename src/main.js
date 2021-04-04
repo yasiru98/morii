@@ -8,7 +8,10 @@ import Splash from '@/components/Splash.vue'
 import Login from '@/components/Login.vue'
 import Home from '@/components/Home.vue'
 import AddMorii from '@/components/AddMorii.vue'
-
+import TellYourStory from '@/components/addMorii/TellYourStory.vue'
+import HelpUsOrganize from '@/components/addMorii/HelpUsOrganize.vue'
+import SetTheTone from '@/components/addMorii/SetTheTone.vue'
+import AddMedia from '@/components/addMorii/AddMedia.vue'
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 
@@ -28,8 +31,27 @@ Vue.config.productionTip = false
 const routes = [ 
   { path: '/', component: Splash},
   { path: '/login', component: Login },
-  { path: '/Home', component: Home },
-  { path: '/AddMorii', component: AddMorii }
+  { path: '/home', component: Home },
+  { path: '/addmorii',
+  // You could also have named views at tho top
+  component: AddMorii,
+  children: [{
+    path: 'addmedia',
+    component: AddMedia
+  },{
+    path: 'tellyourstory',
+    component: TellYourStory
+  },{
+    path: 'helpusorganize',
+    component: HelpUsOrganize
+  },{
+    path: 'setthetone',
+    component: SetTheTone
+  },]
+},
+  
+  
+
 ]
 
 // 3. Create the router instance and pass the `routes` option
