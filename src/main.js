@@ -1,8 +1,9 @@
+
 import Vue from 'vue'
 import App from './App.vue'
 import vuetify from '@/plugins/vuetify';
 import VueRouter from 'vue-router'
-
+import Vuex from 'vuex'
 // Import components for routing
 import Splash from '@/components/Splash.vue'
 import Login from '@/components/Login.vue'
@@ -13,8 +14,40 @@ import HelpUsOrganize from '@/components/addMorii/HelpUsOrganize.vue'
 import SetTheTone from '@/components/addMorii/SetTheTone.vue'
 import AddMedia from '@/components/addMorii/AddMedia.vue'
 Vue.use(VueRouter)
+Vue.use(Vuex)
 Vue.config.productionTip = false
 
+const store = new Vuex.Store({
+  state: {
+    title: "",
+    story:"",
+    date:"",
+    location:"",
+    who:[],
+    
+  },
+  getters:{
+
+  },
+  mutations: {
+    updateTitle (state,payload) {
+      state.title = payload.title;
+    },
+    updateStory (state,payload) {
+      state.story = payload.story;
+    },
+    updateDate (state,payload) {
+      state.date = payload.date;
+    },
+    updateLocation (state,payload) {
+      state.location = payload.location;
+    },
+    updateWho (state,payload) {
+      state.who = payload.who;
+    }
+  }
+})
+export default store;
 // 0. If using a module system (e.g. via vue-cli), import Vue and VueRouter
 // and then call `Vue.use(VueRouter)`.
 
@@ -72,7 +105,12 @@ const router = new VueRouter({
 // Now the app has started!
 
 new Vue({
+  el: '#app',
+  store,
   router,
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+//import HelloWorld from '@/components/HelloWorld';
+
+

@@ -37,9 +37,8 @@
           >
          
             <div id="name"><h1 class="display-1 text-center" >Three.JS</h1></div>
-           
              <div class="login-container">
-
+   <v-btn v-on:click="printmorii" id="submitStory" sm text color="black">Print Morii</v-btn>
       </div>
  
           </v-layout>
@@ -49,12 +48,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
-
+  //props: { moriiStory: { type: String },moriiTitle: { type: String },moriiLocation: { type: String } },
   components: {
 
+  },
+  methods:{
+    printmorii(){
+      console.log("Title: "+this.moriiTitle);
+      console.log("Story: "+this.moriiStory);
+      console.log("Location: "+this.moriiLocation);
+      console.log("Who was there: "+this.moriiWho);
+      console.log("Who was there: "+this.moriiDate);
+    }
   },
 
   data: () => ({
@@ -63,7 +72,17 @@ export default {
 
     
   }),
+  computed: mapState({
+
+    moriiTitle: 'title',
+    moriiStory: 'story',
+    moriiLocation: 'location',
+    moriiWho: 'who',
+    moriiDate: 'date'
+
+  })
 };
+
 </script>
 
 <style>

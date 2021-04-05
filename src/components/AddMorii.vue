@@ -59,13 +59,16 @@ export default {
       console.log(this.story);
     }
   },
+
   data: () => ({
     //
 
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth
-  })
+  }),
+
 };
+
 </script>
 
 <style>

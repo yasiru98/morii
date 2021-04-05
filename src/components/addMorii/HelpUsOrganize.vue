@@ -36,7 +36,7 @@
           v-model="chips"
           chips
           clearable
-          label="Your favorite hobbies"
+          label="Who were you with?"
           multiple
           prepend-icon="mdi-filter-variant"
           solo
@@ -55,29 +55,25 @@
           </template>
         </v-combobox>
 
-        <router-link to="/setthetone">
-          <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
-        </router-link>
+        <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
       </v-layout>
     </div>
   </section>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import store from "@/main.js";
 export default {
   name: "HelpUsOrganize",
   data() {
     return {
-      chips: [
-        "Programming",
-        "Playing video games",
-        "Watching movies",
-        "Sleeping"
-      ],
+      chips: ["John"],
       windowHeight: window.innerHeight,
       windowWidth: window.innerWidth,
       date: null,
-      menu: false
+      menu: false,
+      place:"",
     };
   },
   watch: {
@@ -85,11 +81,22 @@ export default {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
-  props: { place: String, people: Array },
   components: {},
   methods: {
     submit: function() {
-      console.log(this.story);
+      let location = this.place;
+      let who = this.chips;
+      let moriiDate = this.date;
+      console.log(who);
+      store.commit("updateLocation", {
+        location: location
+      });
+      store.commit("updateWho", {
+        who: who
+      });
+      store.commit("updateDate", {
+        date: moriiDate
+      });
     },
     remove(item) {
       this.chips.splice(this.chips.indexOf(item), 1);
@@ -97,8 +104,15 @@ export default {
     },
     save(date) {
       this.$refs.menu.save(date);
+      console.log(date);
     }
-  }
+  },
+  computed: mapState({
+    // arrow functions can make the code very succinct!
+    //name: state => state.title,
+    // passing the string value 'count' is same as `state => state.count`
+    //countAlias: 'title',
+  })
 };
 </script>
 

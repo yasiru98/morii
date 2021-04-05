@@ -8,12 +8,10 @@
           <h1 class="display-1 text-center">Add media</h1>
         </div>
 
-        <v-text-field label="What Happened?" placeholder outlined v-model="story"></v-text-field>
-        <div id="name">
-    
-        </div>
+
+        <div id="name"></div>
         <router-link to="/">
-        <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
+          <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
         </router-link>
       </v-layout>
     </div>
@@ -21,6 +19,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: "AddMedia",
   props: { story: { type: String } },
@@ -32,16 +31,21 @@ export default {
   },
   data: () => ({
     //
-
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth
+  }),
+  computed: mapState({
+    // arrow functions can make the code very succinct!
+    //name: state => state.title,
+    // passing the string value 'count' is same as `state => state.count`
+    //countAlias: 'title'
   })
 };
+
 </script>
 
 <style>
 /* Hide scroll and center content vertically */
 body {
 }
-
 </style>

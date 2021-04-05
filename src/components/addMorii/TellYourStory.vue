@@ -9,32 +9,43 @@
         </div>
 
         <v-text-field label="What Happened?" placeholder outlined v-model="story"></v-text-field>
-        <div id="name">
-    
-        </div>
-        <router-link to="/">
+        <div id="name"></div>
+     
         <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
-        </router-link>
+     
       </v-layout>
     </div>
   </section>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import store from '@/main.js'
 export default {
   name: "TellYourStory",
   props: { story: { type: String } },
   components: {},
   methods: {
     submit: function() {
-      console.log(this.story);
+      let story = this.story;
+      console.log(story);
+      store.commit('updateStory', {
+        story:story
+      })
     }
   },
   data: () => ({
     //
-
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth
+  }),
+  computed: mapState({
+    // arrow functions can make the code very succinct!
+
+    name: state => state.title,
+
+    // passing the string value 'count' is same as `state => state.count`
+    countAlias: "title"
   })
 };
 </script>
@@ -43,5 +54,4 @@ export default {
 /* Hide scroll and center content vertically */
 body {
 }
-
 </style>
