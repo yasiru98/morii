@@ -19,6 +19,9 @@ import {
   UnrealBloomPass
 } from './threejs/postprocessing/UnrealBloomPass.js';
 
+import {
+  Memorii
+} from './Memorii.js'
 
 /* Create globals*/
 var raycaster, mouse, composer;
@@ -114,7 +117,7 @@ var blueMaterial = new THREE.ShaderMaterial({
       value: new THREE.Color("blue")
     },
     color2: {
-      value: new THREE.Color("purple")
+      value: new THREE.Color("green")
     },
     bboxMin: {
       value: geometry.boundingBox.min
@@ -153,12 +156,11 @@ for (let i = 0; i < 25; i++) {
   var newMaterial = new THREE.MeshNormalMaterial({
     flatShading: true
   });
-  var Ico = new THREE.Mesh(geometry, newMaterial);
-  Ico.rotation.z = 0.5;
-  scene.add(Ico);
-  parent.add(Ico);
-  memoriis.push(Ico);
-  Ico.position.set(getMinMax(minX, maxX), getMinMax(minY, maxY), getMinMax(minZ, maxZ));
+ 
+  let myMemorii = new Memorii("Summer2020","4/12/21",["Tom", "Jerry"], "We had a great summer trip","summer.jpg", "summer.mp3",newMaterial);
+
+  myMemorii.Ico.position.set(getMinMax(minX, maxX), getMinMax(minY, maxY), getMinMax(minZ, maxZ));
+  myMemorii.animateThis(scene,parent,memoriis);
 
 
   //draw lines
@@ -170,7 +172,7 @@ for (let i = 0; i < 25; i++) {
   lineGeometry.vertices.push(parent.position, memoriis[i].position);
   var line = new THREE.Line(lineGeometry, lineMat);
   scene.add(line)
-
+  console.log(myMemorii)
 }
 
 /*Bloom Effects */
