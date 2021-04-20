@@ -38,16 +38,7 @@
       </v-toolbar-items>
     </v-app-bar>
 
-    <div class="center">
-      <v-layout column align-center justify-center>
-        <div id="name">
-          <h1 class="display-1 text-center">Three.JS</h1>
-        </div>
-        <div class="login-container">
-          <v-btn v-on:click="printmorii" id="submitStory" sm text color="green">Print Morii</v-btn>
-        </div>
-      </v-layout>
-    </div>
+
     <div id="container"></div>
   </section>
 </template>
@@ -57,7 +48,7 @@ import Memorii from "@/morii.js";
 import * as THREE from "three";
 import { mapState } from "vuex";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { Geometry } from "three/examples/jsm/deprecated/Geometry.js";
+// import { Geometry } from "three/examples/jsm/deprecated/Geometry.js";
 //import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
@@ -131,7 +122,7 @@ export default {
         container.appendChild(this.renderer.domElement);*/
 
       /* create the scene and camera */
-     // let container = document.getElementById("container");
+      let container = document.getElementById("container");
       this.scene = new THREE.Scene();
       this.camera = new THREE.PerspectiveCamera(
         80,
@@ -146,8 +137,8 @@ export default {
       });
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       this.renderer.toneMapping = THREE.ReinhardToneMapping;
-      //container.appendChild(this.renderer.domElement);
-      document.body.appendChild(this.renderer.domElement);
+      container.appendChild(this.renderer.domElement);
+     // document.body.appendChild(this.renderer.domElement);
       this.raycaster = new THREE.Raycaster();
       this.mouse = new THREE.Vector2();
       /* CAMERA CONTROLS */
@@ -216,32 +207,28 @@ export default {
         );
 
         this.myMemorii.Ico.position.set(
-          console.log("X"),
-          console.log(this.getMinMax(this.minX, this.maxX)),
-          console.log("Y"),
-          console.log(this.getMinMax(this.minY, this.maxY)),
-          console.log("Z"),
-          console.log(this.getMinMax(this.minZ, this.maxZ)),
-          console.log("seperate"),
           this.getMinMax(this.minX, this.maxX),
           this.getMinMax(this.minY, this.maxY),
           this.getMinMax(this.minZ, this.maxZ)
         );
         this.myMemorii.animateThis(this.scene, this.parent, this.memoriis);
-        console.log(this.scene),
         //draw lines
         this.lineMat = new THREE.LineBasicMaterial({
           color: 0x000000,
           linewidth: 30
         });
-        this.lineGeometry = new Geometry();
-        this.lineGeometry.vertices.push(
-          this.parent.position,
-          this.memoriis[i].position
-        );
+        this.points = [];
+        this.points.push(this.parent.position);
+        this.points.push(this.myMemorii.Ico.position);
+        this.lineGeometry = new THREE.BufferGeometry().setFromPoints( this.points );
+        // this.lineGeometry.vertices.push(
+        //   this.parent.position,
+        //   this.memoriis[i].position
+        // );
         this.line = new THREE.Line(this.lineGeometry, this.lineMat);
         this.scene.add(this.line);
-        //console.log(this.myMemorii);
+        console.log(this.parent.position);
+        console.log(this.myMemorii.Ico.position);
      }
 
       /*Bloom Effects */
@@ -284,7 +271,7 @@ export default {
       this.composer.render();
 
       //render animations
-      //renderer.render(scene, camera);
+      this.renderer.render(this.scene, this.camera);
     }
   },
 
@@ -304,16 +291,7 @@ export default {
 
 <style>
 /* Hide scroll and center content vertically */
-body {
-}
-.center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
+
 #container {
   width: 100%;
   height: 100vh;
