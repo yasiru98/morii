@@ -38,7 +38,7 @@
       </v-toolbar-items>
     </v-app-bar>
 
-    <div class="center">
+    <!-- <div class="center">
       <v-layout column align-center justify-center>
         <div id="name">
           <h1 class="display-1 text-center">Three.JS</h1>
@@ -47,7 +47,7 @@
           <v-btn v-on:click="printmorii" id="submitStory" sm text color="green">Print Morii</v-btn>
         </div>
       </v-layout>
-    </div>
+    </div> -->
     <div id="container"></div>
   </section>
 </template>
@@ -57,7 +57,7 @@ import Memorii from "@/morii.js";
 import * as THREE from "three";
 import { mapState } from "vuex";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { Geometry } from "three/examples/jsm/deprecated/Geometry.js";
+// import { Geometry } from "three/examples/jsm/deprecated/Geometry.js";
 //import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
@@ -70,9 +70,9 @@ export default {
   data: () => ({
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth,
-    camera: null,
-    scene: null,
-    renderer: null,
+    camera: new THREE.PerspectiveCamera,
+    scene: new THREE.Scene(),
+    renderer: new THREE.WebGLRenderer,
     mesh: null,
     raycaster: null,
     light: null,
@@ -97,7 +97,7 @@ export default {
     bloomPass: null,
     renderScene: null,
     controls: null,
-    composer: null
+    composer: EffectComposer
   }),
 
   methods: {
@@ -112,54 +112,35 @@ export default {
       console.log("Who was there: " + this.moriiDate);
     },
     init: function() {
-      /* Sample Scene for testing
-      /* let container = document.getElementById('container');
 
-        this.camera = new Three.PerspectiveCamera(70, container.clientWidth/container.clientHeight, 0.01, 10);
-        this.camera.position.z = 1;
+      window.addEventListener('resize',this.onWindowResize());
+       /* create the scene and camera */
+      let container = document.getElementById('container');
 
-        this.scene = new Three.Scene();
-
-        let geometry = new Three.BoxGeometry(0.2, 0.2, 0.2);
-        let material = new Three.MeshNormalMaterial();
-
-        this.mesh = new Three.Mesh(geometry, material);
-        this.scene.add(this.mesh);
-
-        this.renderer = new Three.WebGLRenderer({antialias: true});
-        this.renderer.setSize(container.clientWidth, container.clientHeight);
-        container.appendChild(this.renderer.domElement);*/
-
-      /* create the scene and camera */
-     // let container = document.getElementById("container");
+      this.camera = new THREE.PerspectiveCamera(80, container.clientWidth/container.clientHeight, 0.1, 10000);
+       
       this.scene = new THREE.Scene();
-      this.camera = new THREE.PerspectiveCamera(
-        80,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        10000
-      );
       this.scene.add(this.camera);
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true
       });
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.renderer.toneMapping = THREE.ReinhardToneMapping;
-      //container.appendChild(this.renderer.domElement);
-      document.body.appendChild(this.renderer.domElement);
-      this.raycaster = new THREE.Raycaster();
-      this.mouse = new THREE.Vector2();
-      /* CAMERA CONTROLS */
+
+        this.renderer.setSize(container.clientWidth, container.clientHeight);
+        this.renderer.toneMapping = THREE.ReinhardToneMapping;
+        container.appendChild(this.renderer.domElement);
+    //   this.raycaster = new THREE.Raycaster();
+    //   this.mouse = new THREE.Vector2();
+     /* CAMERA CONTROLS */
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.autoRotate = true;
       this.controls.autoRotateSpeed = 0.3;
       this.controls.enableDamping = true;
       this.controls.dampingFactor = 0.01;
-      //this.camera.position.set(0, 20, 300);
-      /* LIGHTS */
+      this.camera.position.set(0,20,300);
+    /* LIGHTS */
 
-      // const light = new THREE.AmbientLight( 0x404040, 5 ); // soft white light
+   // const light = new THREE.AmbientLight( 0x404040, 5 ); // soft white light
       this.light = new THREE.PointLight(0x404040, 5, 500);
       this.light.position.set(0, 0, 0);
       this.scene.add(this.light);
@@ -175,20 +156,17 @@ export default {
 
       //sphere geometry
       this.geometryOne = new THREE.SphereGeometry(200, 32, 32);
-      this.material = new THREE.MeshBasicMaterial({
+      this.sphereMaterial = new THREE.MeshBasicMaterial({
         color: 0x000000,
         wireframe: true,
         visible: false
       });
-      this.sphere = new THREE.Mesh(this.geometryOne, this.material);
-      this.sphere.transparent = true;
+      this.sphere = new THREE.Mesh(this.geometryOne, this.sphereMaterial);
+      this.sphere.transparent = false;
       this.scene.add(this.sphere);
 
       this.sphere.geometry.computeBoundingSphere();
       this.sphere.geometry.computeBoundingBox();
-
-      //console.log(sphere.geometry.boundingBox);
-      //console.log(sphere.geometry.boundingSphere);
 
       this.minX = this.sphere.geometry.boundingBox.min.x + 80;
       this.maxX = this.sphere.geometry.boundingBox.max.x - 80;
@@ -216,39 +194,32 @@ export default {
         );
 
         this.myMemorii.Ico.position.set(
-          console.log("X"),
-          console.log(this.getMinMax(this.minX, this.maxX)),
-          console.log("Y"),
-          console.log(this.getMinMax(this.minY, this.maxY)),
-          console.log("Z"),
-          console.log(this.getMinMax(this.minZ, this.maxZ)),
-          console.log("seperate"),
           this.getMinMax(this.minX, this.maxX),
           this.getMinMax(this.minY, this.maxY),
           this.getMinMax(this.minZ, this.maxZ)
         );
         this.myMemorii.animateThis(this.scene, this.parent, this.memoriis);
-        console.log(this.scene),
         //draw lines
         this.lineMat = new THREE.LineBasicMaterial({
           color: 0x000000,
           linewidth: 30
         });
-        this.lineGeometry = new Geometry();
-        this.lineGeometry.vertices.push(
-          this.parent.position,
-          this.memoriis[i].position
-        );
+        this.points = [];
+        this.points.push(this.parent.position);
+        this.points.push(this.myMemorii.Ico.position);
+        this.lineGeometry = new THREE.BufferGeometry().setFromPoints( this.points );
+       
         this.line = new THREE.Line(this.lineGeometry, this.lineMat);
         this.scene.add(this.line);
-        //console.log(this.myMemorii);
+        console.log(this.parent.position);
+        console.log(this.myMemorii.Ico.position);
      }
 
-      /*Bloom Effects */
+    //   /*Bloom Effects */
       this.renderScene = new RenderPass(this.scene, this.camera);
 
       this.bloomPass = new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        new THREE.Vector2(container.clientWidth, container.clientHeight),
         1,
         0.4,
         0
@@ -257,8 +228,7 @@ export default {
       this.composer = new EffectComposer(this.renderer);
       this.composer.addPass(this.renderScene);
       this.composer.addPass(this.bloomPass);
-
-     this.animate();
+       this.animate();
     },
     getMinMax: function(min, max) {
       min = Math.ceil(min);
@@ -266,14 +236,15 @@ export default {
       return Math.floor(Math.random() * (max - min) + min);
     },
     onWindowResize: function() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      let container = document.getElementById('container');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
 
       this.camera.aspect = width / height;
+      
       this.camera.updateProjectionMatrix();
-
       this.renderer.setSize(width, height);
-      this.composer.setSize(width, height);
+      // this.composer.setSize(width, height);
     },
     animate: function() {
       requestAnimationFrame(this.animate);
@@ -281,10 +252,11 @@ export default {
       this.controls.update();
       //do animations here
 
-      this.composer.render();
+      
 
       //render animations
-      //renderer.render(scene, camera);
+      //this.renderer.render(this.scene, this.camera);
+      this.composer.render();
     }
   },
 
@@ -297,7 +269,7 @@ export default {
   }),
   mounted() {
     this.init();
-    //this.animate();
+
   }
 };
 </script>
