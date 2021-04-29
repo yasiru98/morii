@@ -38,16 +38,6 @@
       </v-toolbar-items>
     </v-app-bar>
 
-    <!-- <div class="center">
-      <v-layout column align-center justify-center>
-        <div id="name">
-          <h1 class="display-1 text-center">Three.JS</h1>
-        </div>
-        <div class="login-container">
-          <v-btn v-on:click="printmorii" id="submitStory" sm text color="green">Print Morii</v-btn>
-        </div>
-      </v-layout>
-    </div> -->
     <div id="container"></div>
   </section>
 </template>
@@ -276,16 +266,7 @@ export default {
 
 <style>
 /* Hide scroll and center content vertically */
-body {
-}
-.center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
+
 #container {
   width: 100%;
   height: 100vh;
