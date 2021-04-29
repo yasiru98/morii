@@ -1,5 +1,6 @@
 <template>
   <section>
+    
     <v-app-bar elevation="1" height="100" color="white">
       <v-btn sm text color="black" href disabled>
         <v-icon left></v-icon>
@@ -37,8 +38,9 @@
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
-
+    <v-img src="@/assets/nbackground.png">
     <div id="container"></div>
+    </v-img>
   </section>
 </template>
 
