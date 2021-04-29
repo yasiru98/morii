@@ -4,6 +4,8 @@ import App from './App.vue'
 import vuetify from '@/plugins/vuetify';
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import VueSelectImage from "vue-select-image";
+
 // Import components for routing
 import Splash from '@/components/Splash.vue'
 import Login from '@/components/Login.vue'
@@ -15,6 +17,7 @@ import SetTheTone from '@/components/addMorii/SetTheTone.vue'
 import AddMedia from '@/components/addMorii/AddMedia.vue'
 Vue.use(VueRouter)
 Vue.use(Vuex)
+Vue.use(VueSelectImage);
 Vue.config.productionTip = false
 
 const store = new Vuex.Store({
@@ -103,6 +106,7 @@ const router = new VueRouter({
 //}).$mount('#app')
 
 // Now the app has started!
+
 
 new Vue({
   el: '#app',

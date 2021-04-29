@@ -6,8 +6,13 @@
       <v-layout column align-center justify-center>
         <div id="name">
           <h1 class="display-1 text-center">Add media</h1>
-        </div>
 
+          <vue-select-image
+            :dataImages="dataImages"
+            :is-multiple="true"
+         
+          ></vue-select-image>
+        </div>
 
         <div id="name"></div>
         <router-link to="/">
@@ -19,7 +24,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+
+
+
+// add stylesheet
+require("vue-select-image/dist/vue-select-image.css");
+
+import { mapState } from "vuex";
 export default {
   name: "AddMedia",
   props: { story: { type: String } },
@@ -32,7 +43,25 @@ export default {
   data: () => ({
     //
     windowHeight: window.innerHeight,
-    windowWidth: window.innerWidth
+    windowWidth: window.innerWidth,
+    dataImages: [
+      {
+        id: "1",
+        src: "https://unsplash.it/200?random",
+        alt: "Alt Image 1"
+      },
+      {
+        id: "2",
+        src: "https://unsplash.it/200?random",
+        alt: "Alt Image 2"
+      },
+      {
+        id: "2",
+        src: "https://unsplash.it/200?random",
+        alt: "Alt Image 2",
+        disabled: true
+      }
+    ]
   }),
   computed: mapState({
     // arrow functions can make the code very succinct!
@@ -41,7 +70,6 @@ export default {
     //countAlias: 'title'
   })
 };
-
 </script>
 
 <style>
