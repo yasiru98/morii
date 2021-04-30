@@ -1,37 +1,37 @@
 <template>
   <section>
-    
-    <v-app-bar elevation="1" height="100" color="white">
-      <v-btn sm text color="black" href disabled>
-        <v-icon left></v-icon>
-      </v-btn>
-      <v-toolbar-title class="black--text">morii</v-toolbar-title>
+    <v-app-bar elevation="1" height="60px" color="white">
+      <v-icon size="70">$vuetify.icons.logo</v-icon>
       <v-btn sm text color="black" href disabled>
         <v-icon left></v-icon>
       </v-btn>
       <router-link to="/addmorii/addmedia">
-        <v-btn sm text color="black">add a new memorii +</v-btn>
+        <v-btn sm text color="black" class="moriiAdd"
+          >add a new memorii +</v-btn
+        >
       </router-link>
       <v-spacer></v-spacer>
 
       <v-text-field
-        label="search my memoriis"
+        label="search"
         prepend-inner-icon="mdi-magnify"
-        rounded
         dense
-        outlined
+        clearable
         class="mt-6"
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn sm text href="#js" color="black">
-          <v-icon>mdi-web</v-icon>
+          <v-icon size="20">$vuetify.icons.home</v-icon>
         </v-btn>
         <v-btn sm text href="#unity" color="black">
-          <v-icon>mdi-bell-outline</v-icon>
+          <v-icon size="20">$vuetify.icons.collabs</v-icon>
         </v-btn>
         <v-btn sm text color="black" href="#contact">
-          <v-icon>mdi-account-outline</v-icon>
+          <v-icon size="20">$vuetify.icons.bell</v-icon>
+        </v-btn>
+        <v-btn sm text color="black" href="#contact">
+          <v-icon size="20">$vuetify.icons.profile</v-icon>
         </v-btn>
         <v-btn sm text color="black" href disabled>
           <v-icon left></v-icon>
@@ -39,7 +39,28 @@
       </v-toolbar-items>
     </v-app-bar>
     <v-img src="@/assets/nbackground.png">
-    <div id="container"></div>
+      <div id="container">
+        <v-icon size="50" class="pan">$vuetify.icons.pan</v-icon>
+        <v-switch
+          v-model="switch1"
+          inset
+          color="black"
+          style="right: 1; bottom: 1"
+          class="ui-switch"
+        ></v-switch>
+
+        <v-slider
+          v-model="zoomValue"
+          @change="zoomInput()"
+          append-icon=$vuetify.icons.zoomin
+          prepend-icon=$vuetify.icons.zoomout
+          max="200;"
+          min="0;"
+          vertical
+          color="grey darken-4"
+          class="ui"
+        ></v-slider>
+      </div>
     </v-img>
   </section>
 </template>
@@ -62,9 +83,12 @@ export default {
   data: () => ({
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth,
-    camera: new THREE.PerspectiveCamera,
+    zoomValue: null,
+    prevVal:null,
+    switch1: null,
+    camera: new THREE.PerspectiveCamera(),
     scene: new THREE.Scene(),
-    renderer: new THREE.WebGLRenderer,
+    renderer: new THREE.WebGLRenderer(),
     mesh: null,
     raycaster: null,
     light: null,
@@ -89,7 +113,7 @@ export default {
     bloomPass: null,
     renderScene: null,
     controls: null,
-    composer: EffectComposer
+    composer: EffectComposer,
   }),
 
   methods: {
@@ -103,36 +127,45 @@ export default {
       console.log("Who was there: " + this.moriiWho);
       console.log("Who was there: " + this.moriiDate);
     },
-    init: function() {
+    init: function () {
+      //adjust scene size
+      window.addEventListener("resize", this.onWindowResize());
+      /* create the scene and camera */
+      let container = document.getElementById("container");
 
-      window.addEventListener('resize',this.onWindowResize());
-       /* create the scene and camera */
-      let container = document.getElementById('container');
+      this.camera = new THREE.PerspectiveCamera(
+        80,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        10000
+      );
 
-      this.camera = new THREE.PerspectiveCamera(80, container.clientWidth/container.clientHeight, 0.1, 10000);
-       
       this.scene = new THREE.Scene();
       this.scene.add(this.camera);
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
-        alpha: true
+        alpha: true,
       });
 
-        this.renderer.setSize(container.clientWidth, container.clientHeight);
-        this.renderer.toneMapping = THREE.ReinhardToneMapping;
-        container.appendChild(this.renderer.domElement);
-    //   this.raycaster = new THREE.Raycaster();
-    //   this.mouse = new THREE.Vector2();
-     /* CAMERA CONTROLS */
+      this.renderer.setSize(container.clientWidth, container.clientHeight);
+      this.renderer.toneMapping = THREE.ReinhardToneMapping;
+      container.appendChild(this.renderer.domElement);
+      //   this.raycaster = new THREE.Raycaster();
+      //   this.mouse = new THREE.Vector2();
+      /* CAMERA CONTROLS */
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.autoRotate = true;
       this.controls.autoRotateSpeed = 0.3;
       this.controls.enableDamping = true;
       this.controls.dampingFactor = 0.01;
-      this.camera.position.set(0,20,300);
-    /* LIGHTS */
+      this.controls.maxDistance = 300;
+      this.controls.minDistance = 100;
+      this.camera.position.set(0, 20, 300);
+      
 
-   // const light = new THREE.AmbientLight( 0x404040, 5 ); // soft white light
+      /* LIGHTS */
+
+      // const light = new THREE.AmbientLight( 0x404040, 5 ); // soft white light
       this.light = new THREE.PointLight(0x404040, 5, 500);
       this.light.position.set(0, 0, 0);
       this.scene.add(this.light);
@@ -151,7 +184,7 @@ export default {
       this.sphereMaterial = new THREE.MeshBasicMaterial({
         color: 0x000000,
         wireframe: true,
-        visible: false
+        visible: false,
       });
       this.sphere = new THREE.Mesh(this.geometryOne, this.sphereMaterial);
       this.sphere.transparent = false;
@@ -172,7 +205,7 @@ export default {
       this.geometry.computeBoundingBox();
       for (let i = 0; i < 25; i++) {
         this.newMaterial = new THREE.MeshNormalMaterial({
-          flatShading: true
+          flatShading: true,
         });
 
         this.myMemorii = new Memorii(
@@ -194,20 +227,22 @@ export default {
         //draw lines
         this.lineMat = new THREE.LineBasicMaterial({
           color: 0x000000,
-          linewidth: 30
+          linewidth: 30,
         });
         this.points = [];
         this.points.push(this.parent.position);
         this.points.push(this.myMemorii.Ico.position);
-        this.lineGeometry = new THREE.BufferGeometry().setFromPoints( this.points );
-       
+        this.lineGeometry = new THREE.BufferGeometry().setFromPoints(
+          this.points
+        );
+
         this.line = new THREE.Line(this.lineGeometry, this.lineMat);
         this.scene.add(this.line);
-        console.log(this.parent.position);
-        console.log(this.myMemorii.Ico.position);
-     }
+        // console.log(this.parent.position);
+        // console.log(this.myMemorii.Ico.position);
+      }
 
-    //   /*Bloom Effects */
+      //   /*Bloom Effects */
       this.renderScene = new RenderPass(this.scene, this.camera);
 
       this.bloomPass = new UnrealBloomPass(
@@ -220,36 +255,49 @@ export default {
       this.composer = new EffectComposer(this.renderer);
       this.composer.addPass(this.renderScene);
       this.composer.addPass(this.bloomPass);
-       this.animate();
+      this.animate();
     },
-    getMinMax: function(min, max) {
+    zoomInput: function () {
+      console.log("we zoomin")
+      console.log(this.zoomValue);
+      console.log(this.camera.position);
+      //var currentVal = this.zoomValue;
+      if (this.zoomValue >= this.prevVal) {
+        this.controls.zoomOut();
+        this.prevVal = this.zoomValue;
+      }else if (this.zoomValue < this.prevVal) {
+        this.controls.zoomIn();
+        this.prevVal = this.zoomValue;
+      }
+
+  
+    },
+    getMinMax: function (min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min) + min);
     },
-    onWindowResize: function() {
-      let container = document.getElementById('container');
+    onWindowResize: function () {
+      let container = document.getElementById("container");
       const width = container.clientWidth;
       const height = container.clientHeight;
 
       this.camera.aspect = width / height;
-      
+
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(width, height);
-      // this.composer.setSize(width, height);
+      //this.composer.setSize(width, height);
     },
-    animate: function() {
+    animate: function () {
       requestAnimationFrame(this.animate);
 
       this.controls.update();
       //do animations here
 
-      
-
       //render animations
       //this.renderer.render(this.scene, this.camera);
       this.composer.render();
-    }
+    },
   },
 
   computed: mapState({
@@ -257,12 +305,12 @@ export default {
     moriiStory: "story",
     moriiLocation: "location",
     moriiWho: "who",
-    moriiDate: "date"
+    moriiDate: "date",
   }),
   mounted() {
     this.init();
-
-  }
+    
+  },
 };
 </script>
 
@@ -272,5 +320,33 @@ export default {
 #container {
   width: 100%;
   height: 100vh;
+}
+
+
+.v-text-field {
+  width: 100px;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: repeat(14, 132px);
+  grid-template-rows: 1fr 1fr 100px auto;
+  column-gap: 24px;
+  justify-items: center;
+}
+.ui {
+  position: absolute;
+  right: 50px;
+  bottom: 300px;
+}
+.ui-switch{
+  position: absolute;
+  right: 30px;
+}
+.pan{
+  position: absolute;
+  left: 1810px;
+  bottom: -490px;
+  
 }
 </style>
