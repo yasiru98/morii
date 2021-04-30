@@ -9,7 +9,7 @@
       <v-btn sm text color="black" href disabled>
         <v-icon left></v-icon>
       </v-btn>
-      <router-link to="/addmorii/addmedia">
+      <router-link to="/addmorii/addmedia/photos">
         <v-btn sm text color="black">add a new memorii +</v-btn>
       </router-link>
       <v-spacer></v-spacer>

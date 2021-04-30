@@ -15,6 +15,7 @@ import TellYourStory from '@/components/addMorii/TellYourStory.vue'
 import HelpUsOrganize from '@/components/addMorii/HelpUsOrganize.vue'
 import SetTheTone from '@/components/addMorii/SetTheTone.vue'
 import AddMedia from '@/components/addMorii/AddMedia.vue'
+import Photos from '@/components/addMorii/addMedia/Photos.vue'
 Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(VueSelectImage);
@@ -73,7 +74,11 @@ const routes = [
   component: AddMorii,
   children: [{
     path: 'addmedia',
-    component: AddMedia
+    component: AddMedia,
+    children:[{
+      path: 'photos',
+      component: Photos,
+    }]
   },{
     path: 'tellyourstory',
     component: TellYourStory
@@ -85,9 +90,6 @@ const routes = [
     component: SetTheTone
   },]
 },
-  
-  
-
 ]
 
 // 3. Create the router instance and pass the `routes` option

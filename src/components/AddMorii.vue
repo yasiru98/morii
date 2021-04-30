@@ -31,16 +31,16 @@
       <v-container class="mt-10">
         <v-row   cols="12" no-gutters>
           <v-col lg="3"><p></p></v-col>
-          <v-col lg="1.5"><router-link to="/addmorii/addmedia"><v-btn sm text color="black">add media</v-btn></router-link></v-col>
+          <v-col lg="1.5"><router-link to="/addmorii/addmedia/photos"><v-btn sm text color="black">add media</v-btn></router-link></v-col>
           <v-col lg="1.5"><router-link to="/addmorii/tellyourstory"><v-btn sm text color="black">tell us your story</v-btn></router-link> </v-col>
           <v-col lg="1.5"><router-link to="/addmorii/helpusorganize"><v-btn sm text color="black">help us organize</v-btn></router-link></v-col>
           <v-col lg="1.5"><router-link to="/addmorii/setthetone"><v-btn sm text color="black">set the tone</v-btn></router-link> </v-col>
           <v-col lg="3"><p></p></v-col>
         </v-row>
           <v-row  cols="12" no-gutters>
-          <v-col lg="3"><p></p></v-col>      
-          <v-col lg="6"><router-view></router-view></v-col>
-          <v-col lg="3"><p></p></v-col>
+          <v-col lg="1"><p></p></v-col>      
+          <v-col lg="10"><router-view></router-view></v-col>
+          <v-col lg="1"><p></p></v-col>
         </v-row>
       </v-container>
     </div>

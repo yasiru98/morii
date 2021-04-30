@@ -30,10 +30,7 @@ export default {
 
 <style>
 /* Hide scroll and center content vertically */
-body {
-  overflow: hidden;
-  height: 100vh;
-}
+
 
 .center {
   margin: 0;
