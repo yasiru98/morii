@@ -25,16 +25,16 @@
                 <v-btn sm text color="black">Photos</v-btn>
               </router-link>
               <v-spacer></v-spacer>
-              <router-link to>
+              <router-link to="/addmorii/addmedia/videos">
                 <v-btn sm text color="black">Videos</v-btn>
               </router-link>
-              <router-link to>
+              <router-link to="/addmorii/addmedia/music">
                 <v-spacer></v-spacer>
                 <v-btn sm text color="black">Music</v-btn>
               </router-link>
             </v-col>
             <v-col lg="9">
-              <v-card elevation="0" class="imageCard" height="45vh">
+              <v-card elevation="0" class="imageCard" height="45vh"  width="45vw">
                 <router-view></router-view>
               </v-card>
             </v-col>

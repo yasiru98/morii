@@ -16,6 +16,8 @@ import HelpUsOrganize from '@/components/addMorii/HelpUsOrganize.vue'
 import SetTheTone from '@/components/addMorii/SetTheTone.vue'
 import AddMedia from '@/components/addMorii/AddMedia.vue'
 import Photos from '@/components/addMorii/addMedia/Photos.vue'
+import Videos from '@/components/addMorii/addMedia/Videos.vue'
+import Music from '@/components/addMorii/addMedia/Music.vue'
 Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(VueSelectImage);
@@ -28,6 +30,10 @@ const store = new Vuex.Store({
     date:"",
     location:"",
     who:[],
+    photos:[],
+    videos:[],
+    songs:[],
+    moriis:[],
     
   },
   getters:{
@@ -48,7 +54,19 @@ const store = new Vuex.Store({
     },
     updateWho (state,payload) {
       state.who = payload.who;
-    }
+    },
+    updatePhotos (state,payload) {
+      state.photos = payload.photos;
+    },
+    updateVideos (state,payload) {
+      state.videos = payload.videos;
+    },
+    updateSongs (state,payload) {
+      state.songs = payload.songs;
+    },
+    updateMoriis(state,payload) {
+      state.moriis = payload.moriis;
+    },
   }
 })
 export default store;
@@ -78,6 +96,12 @@ const routes = [
     children:[{
       path: 'photos',
       component: Photos,
+    },{
+      path: 'videos',
+      component: Videos,
+    },{
+      path: 'music',
+      component: Music,
     }]
   },{
     path: 'tellyourstory',
@@ -88,7 +112,8 @@ const routes = [
   },{
     path: 'setthetone',
     component: SetTheTone
-  },]
+  },
+]
 },
 ]
 

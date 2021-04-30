@@ -10,7 +10,7 @@
 
         <v-text-field label="Give your memory a title" placeholder outlined v-model="moriiTitle"></v-text-field>
         <div id="name">
-        <h1 class="display-1 text-center">Choose a visual to represent the mood of your memory</h1>
+       <!-- <h1 class="display-1 text-center">Choose a visual to represent the mood of your memory</h1> -->
         </div>
         <router-link to="/home">
         <v-btn href="" v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>

@@ -16,12 +16,12 @@ export default class Memorii {
 
     //methods
     animateThis(scene, parent, memoriis) {
-        console.log(this.Ico)
+       // console.log(this.Ico)
         scene.add(this.Ico);
         parent.add(this.Ico);
         memoriis.push(this.Ico);
     }
     test() {
-        console.log(this.name + "is animating")
+      //  console.log(this.name + "is animating")
     }
 }
