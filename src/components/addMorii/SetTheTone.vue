@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import * as THREE from "three";
 import Memorii from "@/morii.js";
 import { mapState } from "vuex";
 import store from "@/main.js";
@@ -40,7 +41,9 @@ export default {
       store.commit("updateTitle", {
         title: title
       });
-
+      let newMaterial = new THREE.MeshNormalMaterial({
+          flatShading: true
+        });
       let newMemorii = new Memorii(
        this.moriiTitle,
         this.moriiDate,
@@ -50,7 +53,7 @@ export default {
         this.moriiVideos,
         this.moriiPhotos,
         this.moriiSongs,
-        null,
+        newMaterial,
 
       );
 
