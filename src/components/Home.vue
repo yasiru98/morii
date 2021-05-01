@@ -54,7 +54,7 @@
         <v-col lg="4"></v-col>
         <v-col lg="4">
           <div id="listView">
-            <v-flex wrap="row">
+            <v-flex>
               <v-layout>
                 <section v-for="morii in arrayOfMoriis" :key="morii">
                   <!--<v-card style="display:block;" class="card-container mt-16 ">{{morii.title}}</v-card>-->

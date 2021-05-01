@@ -7,19 +7,11 @@
         <v-icon left></v-icon>
       </v-btn>
       <router-link to="/addmorii/addmedia/photos">
-        <v-btn sm text color="black" class="moriiAdd"
-          >add a new memorii +</v-btn
-        >
+        <v-btn sm text color="black" class="moriiAdd">add a new memorii +</v-btn>
       </router-link>
       <v-spacer></v-spacer>
 
-      <v-text-field
-        label="search"
-        prepend-inner-icon="mdi-magnify"
-        dense
-        clearable
-        class="mt-6"
-      ></v-text-field>
+      <v-text-field label="search" prepend-inner-icon="mdi-magnify" dense clearable class="mt-6"></v-text-field>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn sm text href="#js" color="black">
@@ -39,6 +31,7 @@
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
+
     <v-img src="@/assets/nbackground.png">
       <div
         id="container"
@@ -46,12 +39,54 @@
         @mousedown="mouseIsDown"
         @mouseup="mouseIsUp"
       >
+      
         <v-icon size="50" class="pan">$vuetify.icons.pan</v-icon>
 
         <v-icon class="ui">$vuetify.icons.zoomIn</v-icon>
         <v-icon class="ui">$vuetify.icons.zoomOut</v-icon>
+        <section>
+    
+    <v-card
+        
+      :loading="loading"
+      class="px-3 ml-16 mt-16 pb-5"
+      max-width="300"
+    >
+      <template slot="progress">
+        <v-progress-linear
+          color="deep-purple"
+          height="10"
+          indeterminate
+        ></v-progress-linear>
+      </template>
+  
+      
+  
+      <v-card-title>{{this.mosaicMorii.title}}</v-card-title>
+  
+      <v-card-text>
+        <v-row
+          align="center"
+          class="mx-0"
+        >
+    
+        </v-row>
+  
+     <v-spacer></v-spacer>
+    
+        <div class="mt-4">{{this.mosaicMorii.location}} . {{this.mosaicMorii.date}}</div>
+      </v-card-text>
+  
+      <v-divider class="mx-4"></v-divider>
+  
+     <div class="mt-4">{{this.mosaicMorii.story}}</div>
+    
+    </v-card>
+</section>
       </div>
     </v-img>
+
+    
   </section>
 </template>
 
@@ -98,7 +133,7 @@ export default {
     tGeometry: null,
     tMesh: null,
     tShape: null,
-    triangles: [],
+    triangles: []
   }),
   methods: {
     onWindowLoad() {
@@ -119,7 +154,6 @@ export default {
       window.addEventListener("resize", this.onWindowResize());
       /* create the scene and camera */
       let container = document.getElementById("container");
-
       this.camera = new THREE.OrthographicCamera(
         container.clientWidth / -2,
         container.clientWidth / 2,
@@ -128,14 +162,12 @@ export default {
         0.1,
         100
       );
-
       this.scene = new THREE.Scene();
       this.scene.add(this.camera);
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true,
       });
-
       this.renderer.setSize(container.clientWidth, container.clientHeight);
       this.renderer.toneMapping = THREE.ReinhardToneMapping;
       container.appendChild(this.renderer.domElement);
@@ -151,22 +183,17 @@ export default {
       this.camera.position.set(0, 0, 25);
       this.cameraCenter.x = this.camera.position.x;
       this.cameraCenter.y = this.camera.position.y;
-
       /* LIGHTS */
-
       // const light = new THREE.AmbientLight( 0x404040, 5 ); // soft white light
       this.light = new THREE.PointLight(0x404040, 5, 500);
       this.light.position.set(0, 0, 20);
       this.scene.add(this.light);
-
       this.camLight = new THREE.PointLight(0xffffff);
       this.camLight.position.set(1, 1, 2);
       this.camera.add(this.camLight);
-
       this.moriiObjects.forEach((memorii) => {
         console.log(memorii);
       });
-
       //Square
       this.square = new THREE.Shape()
         .moveTo(0, 0)
@@ -191,28 +218,27 @@ export default {
       this.minY = this.mesh.geometry.boundingBox.min.y;
       this.maxY = this.mesh.geometry.boundingBox.max.y;
       this.scene.add(this.mesh);
-
-      this.loader = new THREE.TextureLoader();
-
-      /*
+        /*
        * Make the Triangles
        */
       //  for (let i = 0; i < this.moriiObjects.length; i++) {
-
       //  }
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < this.moriiObjects[0].moriis.images.length; i++) {
         this.randX = this.getMinMax(this.minX, this.maxX);
         this.randY = this.getMinMax(this.minY, this.maxY);
         console.log("image"+this.moriiObjects[0].moriis.images[0].id+".jpg");
+        this.textureImage = require('../assets/library/image'+this.moriiObjects[0].moriis.images[i].id+'.jpg');
+        this.texture = new THREE.TextureLoader().load(this.textureImage);
         this.tMaterial = new THREE.MeshBasicMaterial({
-          map: this.loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
+          map: this.texture,
         });
         this.tShape = new Triangle(
           this.randX,
-          this.randX + 50,
+          this.randX + 200,
           this.randY,
           this.tMaterial
         );
+        this.triangles.push(this.tShape);
         console.log(this.tShape);
         this.tShape.mesh.position.set(
           this.getMinMax(this.minX, this.maxX),
@@ -221,7 +247,6 @@ export default {
         );
         this.tShape.animateThis(this.scene);
       }
-
       this.animate();
     },
     zoomInput: function () {
@@ -263,25 +288,20 @@ export default {
       let container = document.getElementById("container");
       const width = container.clientWidth;
       const height = container.clientHeight;
-
       this.camera.aspect = width / height;
-
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(width, height);
       //this.composer.setSize(width, height);
     },
     animate: function () {
       requestAnimationFrame(this.animate);
-
       this.updateCamera();
       //this.controls.update();
       //do animations here
-
       //render animations
       this.renderer.render(this.scene, this.camera);
     },
   },
-
   computed: mapState({
     moriiTitle: "title",
     moriiStory: "story",
@@ -293,28 +313,27 @@ export default {
     moriiSongs: "songs",
     moriiObjects: "moriis",
     moriiSampleMemory: "sampleMemory",
-    mosaicMorii:"whichMorii",
+    mosaicMorii: "whichMorii"
   }),
   mounted() {
-
     this.init();
-    console.log(this.mosaicMorii)
-  },
+    console.log(this.mosaicMorii.title);
+  }
 };
 </script>
 
 <style>
 /* Hide scroll and center content vertically */
 body {
-  overflow: hidden;
-  height: 100vh;
+
+
 }
+
 .center {
   margin: 0;
   position: absolute;
-  top: 50%;
+  margin-top: -15vh;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }
 </style>
