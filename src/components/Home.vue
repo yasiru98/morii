@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import Memorii from "@/morii.js";
+//import Memorii from "@/morii.js";
 import * as THREE from "three";
 import { mapState } from "vuex";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";

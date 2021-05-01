@@ -8,8 +8,9 @@ import VueSelectImage from "vue-select-image";
 
 // Import components for routing
 import Splash from '@/components/Splash.vue'
-import Login from '@/components/Login.vue'
+//import Login from '@/components/Login.vue'
 import Home from '@/components/Home.vue'
+import Mosaic from '@/components/Mosaic.vue'
 import AddMorii from '@/components/AddMorii.vue'
 import TellYourStory from '@/components/addMorii/TellYourStory.vue'
 import HelpUsOrganize from '@/components/addMorii/HelpUsOrganize.vue'
@@ -85,8 +86,9 @@ export default store;
 // We'll talk about nested routes later.
 const routes = [ 
   { path: '/', component: Splash},
-  { path: '/login', component: Login },
+ // { path: '/login', component: Login },
   { path: '/home', component: Home },
+  { path: '/mosaic', component: Mosaic },
   { path: '/addmorii',
   // You could also have named views at tho top
   component: AddMorii,
