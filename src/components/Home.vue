@@ -52,16 +52,17 @@
 
       <v-row>
         <v-col lg="4"></v-col>
-        <v-col lg="4">
+        <v-col lg="4" md="4">
           <div id="listView">
             <v-flex wrap="row">
               <v-layout>
                 <section v-for="morii in arrayOfMoriis" :key="morii">
                   <!--<v-card style="display:block;" class="card-container mt-16 ">{{morii.title}}</v-card>-->
+                 
                   <v-card class="mx-auto" max-width="100vw" outlined>
                     <v-list-item three-line>
                       <v-list-item-content>
-                        <div class="headline mb-1">{{morii.title}}</div>
+                        <div class="headline mb-2">{{morii.title}}</div>
                         <v-list-item-title
                           class="overline mb-4 mt-4"
                         >{{morii.date}}, {{morii.location}}</v-list-item-title>
@@ -72,9 +73,10 @@
                     </v-list-item>
 
                     <v-card-actions>
-                      <v-btn outlined rounded text @click="viewMosaic(morii)">Button</v-btn>
+                      <v-btn outlined rounded text @click="viewMosaic(morii)">Mosaic</v-btn>
                     </v-card-actions>
                   </v-card>
+                 
                   <v-spacer></v-spacer>
                 </section>
               </v-layout>
