@@ -112,6 +112,8 @@ export default {
     scene: new THREE.Scene(),
     renderer: new THREE.WebGLRenderer(),
     loader: new THREE.TextureLoader(),
+    texture: null,
+    textureLoader: null,
     mesh: null,
     raycaster: null,
     mouse: null,

@@ -6,10 +6,11 @@ export default class Triangle {
         this.x2 = x2;
         this.y = y;
         this.diff = (this.x - this.x2);
+        this.height = this.diff*(Math.sqrt(3)/2);
         this.shape= new THREE.Shape()
         .moveTo(this.x,this.y)
-        .lineTo(this.x-this.diff,this.x)
-        .lineTo(this.x+this.diff,this.x)
+        .lineTo(this.x2,this.y)
+        .lineTo(this.x2+(this.diff/2),this.y+this.height)
         .lineTo(this.x,this.y);
         this.geometry = new THREE.ShapeGeometry(this.shape);      
         this.material = material;
