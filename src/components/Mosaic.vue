@@ -77,6 +77,8 @@ export default {
     scene: new THREE.Scene(),
     renderer: new THREE.WebGLRenderer(),
     loader: new THREE.TextureLoader(),
+    texture: null,
+    textureLoader: null,
     mesh: null,
     raycaster: null,
     mouse: null,
@@ -192,27 +194,28 @@ export default {
       this.maxY = this.mesh.geometry.boundingBox.max.y;
       this.scene.add(this.mesh);
 
-      this.loader = new THREE.TextureLoader();
-
-      /*
+        /*
        * Make the Triangles
        */
       //  for (let i = 0; i < this.moriiObjects.length; i++) {
 
       //  }
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < this.moriiObjects[0].moriis.images.length; i++) {
         this.randX = this.getMinMax(this.minX, this.maxX);
         this.randY = this.getMinMax(this.minY, this.maxY);
         console.log("image"+this.moriiObjects[0].moriis.images[0].id+".jpg");
+        this.textureImage = require('../assets/library/image'+this.moriiObjects[0].moriis.images[i].id+'.jpg');
+        this.texture = new THREE.TextureLoader().load(this.textureImage);
         this.tMaterial = new THREE.MeshBasicMaterial({
-          map: this.loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
+          map: this.texture,
         });
         this.tShape = new Triangle(
           this.randX,
-          this.randX + 50,
+          this.randX + 200,
           this.randY,
           this.tMaterial
         );
+        this.triangles.push(this.tShape);
         console.log(this.tShape);
         this.tShape.mesh.position.set(
           this.getMinMax(this.minX, this.maxX),
