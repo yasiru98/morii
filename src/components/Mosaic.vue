@@ -293,9 +293,12 @@ export default {
     moriiSongs: "songs",
     moriiObjects: "moriis",
     moriiSampleMemory: "sampleMemory",
+    mosaicMorii:"whichMorii",
   }),
   mounted() {
+
     this.init();
+    console.log(this.mosaicMorii)
   },
 };
 </script>

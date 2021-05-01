@@ -50,22 +50,39 @@
         class="ui-switch"
       ></v-switch>
 
-        <v-row>
+      <v-row>
         <v-col lg="4"></v-col>
         <v-col lg="4">
-      <div id="listView">
-        <v-flex wrap="column">
-          <v-layout >
-            <section  v-for="morii in arrayOfMoriis" :key="morii">
-              <v-card style="display:block;" class="card-container mt-16 ">{{morii.title}}</v-card>
-            </section>
-          </v-layout>
-          <v-spacer></v-spacer>
-        </v-flex>
-      </div>
-      </v-col>
-        <v-col  lg="4"></v-col>
-        </v-row>
+          <div id="listView">
+            <v-flex wrap="row">
+              <v-layout>
+                <section v-for="morii in arrayOfMoriis" :key="morii">
+                  <!--<v-card style="display:block;" class="card-container mt-16 ">{{morii.title}}</v-card>-->
+                  <v-card class="mx-auto" max-width="100vw" outlined>
+                    <v-list-item three-line>
+                      <v-list-item-content>
+                        <div class="headline mb-1">{{morii.title}}</div>
+                        <v-list-item-title
+                          class="overline mb-4 mt-4"
+                        >{{morii.date}}, {{morii.location}}</v-list-item-title>
+                        <v-list-item-title class="overline mb-4">{{morii.people}}</v-list-item-title>
+
+                        <v-list-item-subtitle>{{morii.story}}</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-card-actions>
+                      <v-btn outlined rounded text @click="viewMosaic(morii)">Button</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                  <v-spacer></v-spacer>
+                </section>
+              </v-layout>
+            </v-flex>
+          </div>
+        </v-col>
+        <v-col lg="4"></v-col>
+      </v-row>
       <div id="container">
         <v-icon size="50" class="pan">$vuetify.icons.pan</v-icon>
 
@@ -86,9 +103,8 @@
 </template>
 
 <script>
-
 //import Memorii from "@/morii.js";
-//import store from "@/main.js";
+import store from "@/main.js";
 import * as THREE from "three";
 import { mapState } from "vuex";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -145,6 +161,13 @@ export default {
     onWindowLoad() {
       console.log("window load event");
     },
+    viewMosaic: function(morii) {
+      console.log(morii);
+      store.commit("whichMmorii", {
+        whichMorii: morii
+      });
+       this.$router.push('/mosaic'); 
+    },
     toggle: function() {
       console.log(this.switch1);
       if (this.switch1 === true) {
@@ -175,8 +198,6 @@ export default {
       //console.log(this.moriiSongs);
     },
     init: function() {
-    
-
       //let newArray = [];
       this.moriiObjects.forEach(memorii => {
         console.log(memorii.moriis);

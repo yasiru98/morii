@@ -88,6 +88,7 @@ const store = new Vuex.Store({
     songs:null,
     moriis:[],
     sampleMemory:false,
+    whichMorii:null,
     
   },
   getters:{
@@ -123,6 +124,9 @@ const store = new Vuex.Store({
     },
     updateSampleMemory(state,payload) {
       state.sampleMemory = payload.sampleMemory
+    },
+    updateWhichMorii(state,payload) {
+      state.whichMorii = payload.whichMorii
     },
   }
 })
