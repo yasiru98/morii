@@ -99,7 +99,7 @@ body {
 .center {
   margin: 0;
   position: absolute;
-  top: 55%;
+  margin-top: -15vh;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
 }

@@ -5,7 +5,7 @@
     <div class="center">
       <v-layout column align-center justify-center>
         <div id="name">
-          <h1 class="display-1 text-center">Tell Your Story</h1>
+          <h1 class="display-1 text-center">Tell Us Your Story</h1>
         </div>
 
      
@@ -13,14 +13,14 @@
 
             <v-textarea
          v-model="story"
-        label="What Happened?"
+        label="Type your story here"
         counter
       
         full-width
         single-line
       ></v-textarea>
 
-        <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
+        <v-btn v-on:click="submit" id="submitStory" sm text color="black">Next</v-btn>
      
       </v-layout>
     </div>

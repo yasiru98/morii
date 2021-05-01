@@ -15,7 +15,8 @@
           label="Who were you with?"
           multiple
           prepend-icon="mdi-filter-variant"
-          solo
+        
+          
         >
           <template v-slot:selection="{ attrs, item, select, selected }">
             <v-chip
@@ -31,7 +32,7 @@
           </template>
         </v-combobox>
 
-        <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
+        <v-btn v-on:click="submit" id="submitStory" sm text color="black">Next</v-btn>
       </v-layout>
     </div>
   </section>

@@ -13,7 +13,7 @@
           <!-- <h1 class="display-1 text-center">Choose a visual to represent the mood of your memory</h1> -->
         </div>
         <router-link to="/home">
-          <v-btn href v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
+          <v-btn href v-on:click="submit" id="submitStory" sm text color="black">Next</v-btn>
         </router-link>
       </v-layout>
     </div>

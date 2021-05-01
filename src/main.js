@@ -35,6 +35,7 @@ const store = new Vuex.Store({
     videos:null,
     songs:null,
     moriis:[],
+    sampleMemory:false,
     
   },
   getters:{
@@ -67,6 +68,9 @@ const store = new Vuex.Store({
     },
     updateMoriis(state,payload) {
       state.moriis.push(payload)
+    },
+    updateSampleMemory(state,payload) {
+      state.sampleMemory = payload.sampleMemory
     },
   }
 })
