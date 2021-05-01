@@ -1,7 +1,7 @@
 
 <template>
   <section>
-    <v-img src="@/assets/background.png">
+    <v-img src="@/assets/LoginBG.png">
       <div class="center">
         <v-layout column align-center justify-center>
           <div id="name">

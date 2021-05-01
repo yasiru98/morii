@@ -4,8 +4,6 @@ import App from './App.vue'
 import vuetify from '@/plugins/vuetify';
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import VueSelectImage from "vue-select-image";
-
 // Import components for routing
 import Splash from '@/components/Splash.vue'
 import Login from '@/components/Login.vue'
@@ -15,12 +13,8 @@ import TellYourStory from '@/components/addMorii/TellYourStory.vue'
 import HelpUsOrganize from '@/components/addMorii/HelpUsOrganize.vue'
 import SetTheTone from '@/components/addMorii/SetTheTone.vue'
 import AddMedia from '@/components/addMorii/AddMedia.vue'
-import Photos from '@/components/addMorii/addMedia/Photos.vue'
-import Videos from '@/components/addMorii/addMedia/Videos.vue'
-import Music from '@/components/addMorii/addMedia/Music.vue'
 Vue.use(VueRouter)
 Vue.use(Vuex)
-Vue.use(VueSelectImage);
 Vue.config.productionTip = false
 
 const store = new Vuex.Store({
@@ -92,17 +86,7 @@ const routes = [
   component: AddMorii,
   children: [{
     path: 'addmedia',
-    component: AddMedia,
-    children:[{
-      path: 'photos',
-      component: Photos,
-    },{
-      path: 'videos',
-      component: Videos,
-    },{
-      path: 'music',
-      component: Music,
-    }]
+    component: AddMedia
   },{
     path: 'tellyourstory',
     component: TellYourStory
@@ -112,9 +96,11 @@ const routes = [
   },{
     path: 'setthetone',
     component: SetTheTone
-  },
-]
+  },]
 },
+  
+  
+
 ]
 
 // 3. Create the router instance and pass the `routes` option
@@ -133,7 +119,6 @@ const router = new VueRouter({
 //}).$mount('#app')
 
 // Now the app has started!
-
 
 new Vue({
   el: '#app',
