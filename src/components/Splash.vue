@@ -16,7 +16,7 @@
             Get a glimpse of the full expereince here
           </div>
           <v-spacer></v-spacer>
-          <router-link to="/home">
+          <router-link to="/home" class="mybttn">
             <v-btn class="mybttn" rounded raised width="400"
               >Get Started
             </v-btn>
@@ -47,17 +47,17 @@ body {
   font-family: "Be Vietnam", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
 }
-i.v-icon.v-icon {
-  color: #7342ff;
-}
+
 .moriiLogo {
   position: absolute;
   padding-top: 510px;
 }
 .mybttn {
   margin-top: 20px;
+  position: absolute;
+  right: 115px;
+  text-decoration: none;
 }
 .myDiv {
   position: absolute;
@@ -75,7 +75,5 @@ i.v-icon.v-icon {
   right: 200px;
   line-height: 50px;
 }
-a {
-    text-decoration: none;
-}
+
 </style>
