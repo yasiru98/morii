@@ -162,11 +162,14 @@ export default {
       console.log("window load event");
     },
     viewMosaic: function(morii) {
-      console.log(morii);
-      store.commit("whichMmorii", {
-        whichMorii: morii
+    
+      let whichMorii = morii
+       console.log(morii);
+      store.commit("updateWhichMorii", {
+        whichMorii: whichMorii
       });
        this.$router.push('/mosaic'); 
+      
     },
     toggle: function() {
       console.log(this.switch1);
@@ -423,7 +426,8 @@ export default {
     moriiVideos: "videos",
     moriiSongs: "songs",
     moriiObjects: "moriis",
-    moriiSampleMemory: "sampleMemory"
+    moriiSampleMemory: "sampleMemory",
+    theMorii: "whichMorii",
   }),
   mounted() {
     this.init();
