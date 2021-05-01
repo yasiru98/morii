@@ -6,11 +6,19 @@
         <v-icon left></v-icon>
       </v-btn>
       <router-link to="/addmorii/addmedia/photos">
-        <v-btn sm text color="black" class="moriiAdd">add a new memorii +</v-btn>
+        <v-btn sm text color="black" class="moriiAdd"
+          >add a new memorii +</v-btn
+        >
       </router-link>
       <v-spacer></v-spacer>
 
-      <v-text-field label="search" prepend-inner-icon="mdi-magnify" dense clearable class="mt-6"></v-text-field>
+      <v-text-field
+        label="search"
+        prepend-inner-icon="mdi-magnify"
+        dense
+        clearable
+        class="mt-6"
+      ></v-text-field>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn sm text href="#js" color="black">
@@ -83,6 +91,7 @@ export default {
     renderer: new THREE.WebGLRenderer(),
     mesh: null,
     raycaster: null,
+    mouse: null,
     light: null,
     camLight: null,
     parent: null,
@@ -105,7 +114,7 @@ export default {
     bloomPass: null,
     renderScene: null,
     controls: null,
-    composer: EffectComposer
+    composer: EffectComposer,
   }),
 
   methods: {
@@ -113,16 +122,16 @@ export default {
       console.log("window load event");
     },
     printmorii() {
-     //console.log("Title: " + this.moriiTitle);
-     //console.log("Story: " + this.moriiStory);
-     //console.log("Location: " + this.moriiLocation);
-     //console.log("Who was there: " + this.moriiWho);
-     //console.log("Who was there: " + this.moriiDate);
-     //console.log("Photos: " + this.moriiPhotos);
-    console.log(this.moriiObjects);
-     //console.log(this.moriiSongs);
+      //console.log("Title: " + this.moriiTitle);
+      //console.log("Story: " + this.moriiStory);
+      //console.log("Location: " + this.moriiLocation);
+      //console.log("Who was there: " + this.moriiWho);
+      //console.log("Who was there: " + this.moriiDate);
+      //console.log("Photos: " + this.moriiPhotos);
+      console.log(this.moriiObjects);
+      //console.log(this.moriiSongs);
     },
-    init: function() {
+    init: function () {
       //adjust scene size
       window.addEventListener("resize", this.onWindowResize());
       /* create the scene and camera */
@@ -139,7 +148,7 @@ export default {
       this.scene.add(this.camera);
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
-        alpha: true
+        alpha: true,
       });
 
       this.renderer.setSize(container.clientWidth, container.clientHeight);
@@ -178,7 +187,7 @@ export default {
       this.sphereMaterial = new THREE.MeshBasicMaterial({
         color: 0x000000,
         wireframe: true,
-        visible: false
+        visible: false,
       });
       this.sphere = new THREE.Mesh(this.geometryOne, this.sphereMaterial);
       this.sphere.transparent = false;
@@ -197,45 +206,69 @@ export default {
       //Ico Geometry
       this.geometry = new THREE.IcosahedronGeometry(10, 5);
       this.geometry.computeBoundingBox();
-      for (let i = 0; i < 25; i++) {
-        this.newMaterial = new THREE.MeshNormalMaterial({
-          flatShading: true
-        });
 
-        this.myMemorii = new Memorii(
-          "Summer2020",
-          "4/12/21",
-          ["Tom", "Jerry"],
-          "Earth",
-          "We had a great summer trip",
-          "summer.jpg",
-          "summer.mp3",
-          this.newMaterial
-        );
-
-        this.myMemorii.Ico.position.set(
+    
+      this.moriiObjects.forEach(memorii => {
+        memorii.moriis.Ico.position.set(
           this.getMinMax(this.minX, this.maxX),
           this.getMinMax(this.minY, this.maxY),
           this.getMinMax(this.minZ, this.maxZ)
         );
-        this.myMemorii.animateThis(this.scene, this.parent, this.memoriis);
+         memorii.moriis.animateThis(this.scene, this.parent, this.memoriis);
         //draw lines
         this.lineMat = new THREE.LineBasicMaterial({
           color: 0x000000,
-          linewidth: 30
+          linewidth: 30,
         });
         this.points = [];
         this.points.push(this.parent.position);
-        this.points.push(this.myMemorii.Ico.position);
+        this.points.push( memorii.moriis.Ico.position);
         this.lineGeometry = new THREE.BufferGeometry().setFromPoints(
           this.points
         );
 
         this.line = new THREE.Line(this.lineGeometry, this.lineMat);
         this.scene.add(this.line);
-        // console.log(this.parent.position);
-        // console.log(this.myMemorii.Ico.position);
-      }
+      });
+      // for (let i = 0; i < 25; i++) {
+      //   this.newMaterial = new THREE.MeshNormalMaterial({
+      //     flatShading: true,
+      //   });
+
+      //   this.myMemorii = new Memorii(
+      //     "Summer2020",
+      //     "4/12/21",
+      //     ["Tom", "Jerry"],
+      //     "Earth",
+      //     "We had a great summer trip",
+      //     "summer.jpg",
+      //     "summer.mp3",
+      //     this.newMaterial
+      //   );
+
+      //   this.myMemorii.Ico.position.set(
+      //     this.getMinMax(this.minX, this.maxX),
+      //     this.getMinMax(this.minY, this.maxY),
+      //     this.getMinMax(this.minZ, this.maxZ)
+      //   );
+      //   this.myMemorii.animateThis(this.scene, this.parent, this.memoriis);
+      //   //draw lines
+      //   this.lineMat = new THREE.LineBasicMaterial({
+      //     color: 0x000000,
+      //     linewidth: 30,
+      //   });
+      //   this.points = [];
+      //   this.points.push(this.parent.position);
+      //   this.points.push(this.myMemorii.Ico.position);
+      //   this.lineGeometry = new THREE.BufferGeometry().setFromPoints(
+      //     this.points
+      //   );
+
+      //   this.line = new THREE.Line(this.lineGeometry, this.lineMat);
+      //   this.scene.add(this.line);
+      //   // console.log(this.parent.position);
+      //   // console.log(this.myMemorii.Ico.position);
+      // }
 
       //   /*Bloom Effects */
       this.renderScene = new RenderPass(this.scene, this.camera);
@@ -252,7 +285,7 @@ export default {
       this.composer.addPass(this.bloomPass);
       this.animate();
     },
-    zoomInput: function() {
+    zoomInput: function () {
       console.log("we zoomin");
       console.log(this.zoomValue);
       console.log(this.camera.position);
@@ -265,12 +298,23 @@ export default {
         this.prevVal = this.zoomValue;
       }
     },
-    getMinMax: function(min, max) {
+    onMouseDown: function (e) {
+      e.preventDefault();
+      this.mouse.x = (e.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
+      this.mouse.y =-(e.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
+
+      this.raycaster.setFromCamera(this.mouse, this.camera);
+      var intersects = this.raycaster.intersectObjects(this.memoriis);
+      if (intersects.length > 0) {
+        intersects[0].object.callback();
+      }
+    },
+    getMinMax: function (min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min) + min);
     },
-    onWindowResize: function() {
+    onWindowResize: function () {
       let container = document.getElementById("container");
       const width = container.clientWidth;
       const height = container.clientHeight;
@@ -281,7 +325,7 @@ export default {
       this.renderer.setSize(width, height);
       //this.composer.setSize(width, height);
     },
-    animate: function() {
+    animate: function () {
       requestAnimationFrame(this.animate);
 
       this.controls.update();
@@ -290,7 +334,7 @@ export default {
       //render animations
       //this.renderer.render(this.scene, this.camera);
       this.composer.render();
-    }
+    },
   },
 
   computed: mapState({
@@ -302,12 +346,11 @@ export default {
     moriiPhotos: "photos",
     moriiVideos: "videos",
     moriiSongs: "songs",
-    moriiObjects: "moriis"
-
+    moriiObjects: "moriis",
   }),
   mounted() {
     this.init();
-  }
+  },
 };
 </script>
 
