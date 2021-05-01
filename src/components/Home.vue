@@ -5,20 +5,12 @@
       <v-btn sm text color="black" href disabled>
         <v-icon left></v-icon>
       </v-btn>
-      <router-link to="/addmorii/addmedia">
-        <v-btn sm text color="black" class="moriiAdd"
-          >add a new memorii +</v-btn
-        >
+      <router-link to="/addmorii/addmedia/photos">
+        <v-btn sm text color="black" class="moriiAdd">add a new memorii +</v-btn>
       </router-link>
       <v-spacer></v-spacer>
 
-      <v-text-field
-        label="search"
-        prepend-inner-icon="mdi-magnify"
-        dense
-        clearable
-        class="mt-6"
-      ></v-text-field>
+      <v-text-field label="search" prepend-inner-icon="mdi-magnify" dense clearable class="mt-6"></v-text-field>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn sm text href="#js" color="black">
@@ -30,7 +22,7 @@
         <v-btn sm text color="black" href="#contact">
           <v-icon size="20">$vuetify.icons.bell</v-icon>
         </v-btn>
-        <v-btn sm text color="black" href="#contact">
+        <v-btn sm text color="black" @click="printmorii" href="#contact">
           <v-icon size="20">$vuetify.icons.profile</v-icon>
         </v-btn>
         <v-btn sm text color="black" href disabled>
@@ -52,8 +44,8 @@
         <v-slider
           v-model="zoomValue"
           @change="zoomInput()"
-          append-icon=$vuetify.icons.zoomin
-          prepend-icon=$vuetify.icons.zoomout
+          append-icon="$vuetify.icons.zoomin"
+          prepend-icon="$vuetify.icons.zoomout"
           max="200;"
           min="0;"
           vertical
@@ -84,7 +76,7 @@ export default {
     windowHeight: window.innerHeight,
     windowWidth: window.innerWidth,
     zoomValue: null,
-    prevVal:null,
+    prevVal: null,
     switch1: null,
     camera: new THREE.PerspectiveCamera(),
     scene: new THREE.Scene(),
@@ -113,7 +105,7 @@ export default {
     bloomPass: null,
     renderScene: null,
     controls: null,
-    composer: EffectComposer,
+    composer: EffectComposer
   }),
 
   methods: {
@@ -121,13 +113,16 @@ export default {
       console.log("window load event");
     },
     printmorii() {
-      console.log("Title: " + this.moriiTitle);
-      console.log("Story: " + this.moriiStory);
-      console.log("Location: " + this.moriiLocation);
-      console.log("Who was there: " + this.moriiWho);
-      console.log("Who was there: " + this.moriiDate);
+     //console.log("Title: " + this.moriiTitle);
+     //console.log("Story: " + this.moriiStory);
+     //console.log("Location: " + this.moriiLocation);
+     //console.log("Who was there: " + this.moriiWho);
+     //console.log("Who was there: " + this.moriiDate);
+     //console.log("Photos: " + this.moriiPhotos);
+    console.log(this.moriiVideos);
+     //console.log(this.moriiSongs);
     },
-    init: function () {
+    init: function() {
       //adjust scene size
       window.addEventListener("resize", this.onWindowResize());
       /* create the scene and camera */
@@ -144,7 +139,7 @@ export default {
       this.scene.add(this.camera);
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
-        alpha: true,
+        alpha: true
       });
 
       this.renderer.setSize(container.clientWidth, container.clientHeight);
@@ -161,7 +156,6 @@ export default {
       this.controls.maxDistance = 300;
       this.controls.minDistance = 100;
       this.camera.position.set(0, 20, 300);
-      
 
       /* LIGHTS */
 
@@ -184,7 +178,7 @@ export default {
       this.sphereMaterial = new THREE.MeshBasicMaterial({
         color: 0x000000,
         wireframe: true,
-        visible: false,
+        visible: false
       });
       this.sphere = new THREE.Mesh(this.geometryOne, this.sphereMaterial);
       this.sphere.transparent = false;
@@ -205,13 +199,14 @@ export default {
       this.geometry.computeBoundingBox();
       for (let i = 0; i < 25; i++) {
         this.newMaterial = new THREE.MeshNormalMaterial({
-          flatShading: true,
+          flatShading: true
         });
 
         this.myMemorii = new Memorii(
           "Summer2020",
           "4/12/21",
           ["Tom", "Jerry"],
+          "Earth",
           "We had a great summer trip",
           "summer.jpg",
           "summer.mp3",
@@ -227,7 +222,7 @@ export default {
         //draw lines
         this.lineMat = new THREE.LineBasicMaterial({
           color: 0x000000,
-          linewidth: 30,
+          linewidth: 30
         });
         this.points = [];
         this.points.push(this.parent.position);
@@ -257,27 +252,25 @@ export default {
       this.composer.addPass(this.bloomPass);
       this.animate();
     },
-    zoomInput: function () {
-      console.log("we zoomin")
+    zoomInput: function() {
+      console.log("we zoomin");
       console.log(this.zoomValue);
       console.log(this.camera.position);
       //var currentVal = this.zoomValue;
       if (this.zoomValue >= this.prevVal) {
         this.controls.zoomOut();
         this.prevVal = this.zoomValue;
-      }else if (this.zoomValue < this.prevVal) {
+      } else if (this.zoomValue < this.prevVal) {
         this.controls.zoomIn();
         this.prevVal = this.zoomValue;
       }
-
-  
     },
-    getMinMax: function (min, max) {
+    getMinMax: function(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min) + min);
     },
-    onWindowResize: function () {
+    onWindowResize: function() {
       let container = document.getElementById("container");
       const width = container.clientWidth;
       const height = container.clientHeight;
@@ -288,7 +281,7 @@ export default {
       this.renderer.setSize(width, height);
       //this.composer.setSize(width, height);
     },
-    animate: function () {
+    animate: function() {
       requestAnimationFrame(this.animate);
 
       this.controls.update();
@@ -297,7 +290,7 @@ export default {
       //render animations
       //this.renderer.render(this.scene, this.camera);
       this.composer.render();
-    },
+    }
   },
 
   computed: mapState({
@@ -306,11 +299,13 @@ export default {
     moriiLocation: "location",
     moriiWho: "who",
     moriiDate: "date",
+    moriiPhotos: "photos",
+    moriiVideos: "videos",
+    moriiSongs: "songs"
   }),
   mounted() {
     this.init();
-    
-  },
+  }
 };
 </script>
 
@@ -321,7 +316,6 @@ export default {
   width: 100%;
   height: 100vh;
 }
-
 
 .v-text-field {
   width: 100px;
@@ -339,14 +333,13 @@ export default {
   right: 50px;
   bottom: 300px;
 }
-.ui-switch{
+.ui-switch {
   position: absolute;
   right: 30px;
 }
-.pan{
+.pan {
   position: absolute;
   left: 1810px;
   bottom: -490px;
-  
 }
 </style>

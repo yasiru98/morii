@@ -8,9 +8,18 @@
           <h1 class="display-1 text-center">Tell Your Story</h1>
         </div>
 
-        <v-text-field label="What Happened?" placeholder outlined v-model="story"></v-text-field>
-        <div id="name"></div>
      
+     
+
+            <v-textarea
+         v-model="story"
+        label="What Happened?"
+        counter
+      
+        full-width
+        single-line
+      ></v-textarea>
+
         <v-btn v-on:click="submit" id="submitStory" sm text color="black">Done</v-btn>
      
       </v-layout>
@@ -32,7 +41,9 @@ export default {
       store.commit('updateStory', {
         story:story
       })
+         this.$router.push('/addmorii/helpusorganize'); 
     }
+ 
   },
   data: () => ({
     //
@@ -53,5 +64,14 @@ export default {
 <style>
 /* Hide scroll and center content vertically */
 body {
+}
+.v-application .align-center {
+    align-items: baseline!important;
+}
+
+</style>
+<style scoped>
+ .v-text-field{
+      width: 400px;
 }
 </style>

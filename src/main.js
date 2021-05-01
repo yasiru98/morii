@@ -30,9 +30,9 @@ const store = new Vuex.Store({
     date:"",
     location:"",
     who:[],
-    photos:[],
-    videos:[],
-    songs:[],
+    photos:null,
+    videos:null,
+    songs:null,
     moriis:[],
     
   },
@@ -65,7 +65,7 @@ const store = new Vuex.Store({
       state.songs = payload.songs;
     },
     updateMoriis(state,payload) {
-      state.moriis = payload.moriis;
+      state.moriis.push(payload)
     },
   }
 })

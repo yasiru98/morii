@@ -94,7 +94,7 @@ import picture81 from "@/assets/library/image81.jpg";
 import picture82 from "@/assets/library/image82.jpg";
 import picture83 from "@/assets/library/image83.jpg";
 
-//import store from '@/main.js'
+import store from '@/main.js'
 export default {
   name: "SetTheTone",
   data: () => ({
@@ -526,6 +526,10 @@ export default {
     onSelectMultipleImage: function (data) {
       console.log('fire event onSelectMultipleImage: ', data)
       this.imageMultipleSelected = data
+      let photos = this.imageMultipleSelected;
+        store.commit('updatePhotos', {
+        photos:photos
+      })
     }
   },
 

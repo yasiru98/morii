@@ -73,6 +73,8 @@ export default {
       store.commit("updateDate", {
         date: moriiDate
       });
+
+       this.$router.push('/addmorii/setthetone'); 
     },
     remove(item) {
       this.chips.splice(this.chips.indexOf(item), 1);
@@ -92,8 +94,19 @@ export default {
 };
 </script>
 
+
 <style>
 /* Hide scroll and center content vertically */
 body {
+}
+.v-application .align-center {
+    align-items: baseline!important;
+}
+
+</style>
+
+<style scoped>
+ .v-text-field{
+      width: 400px;
 }
 </style>

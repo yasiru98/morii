@@ -9,10 +9,9 @@
         <template v-for="(item) in items">
           <v-list-item :key="item.title">
             <template v-slot:default="{ active }">
-                <v-icon class="pr-5">mdi-album</v-icon>
-                
+              <v-icon class="pr-5">mdi-album</v-icon>
+
               <v-list-item-content>
-                  
                 <h6>
                   <v-list-item-title v-text="item.title"></v-list-item-title>
                 </h6>
@@ -33,6 +32,7 @@
 </template>
 
     <script>
+import store from "@/main.js";
 export default {
   data() {
     return {
@@ -75,25 +75,25 @@ export default {
           id: "5",
           title: "Glamorous"
         },
-         {
+        {
           action: false,
           headline: "ABBA",
           id: "6",
           title: "Mamma Mia"
         },
-         {
+        {
           action: false,
           headline: "*NSYNC",
           id: "7",
           title: "Tearin’ up My Heart - Radio Edit"
         },
-         {
+        {
           action: false,
           headline: "Smash Mouth",
           id: "8",
           title: "All Star"
         },
-           {
+        {
           action: false,
           headline: "Tom Cochrane",
           id: "9",
@@ -161,16 +161,27 @@ export default {
   methods: {
     /* 2 - or... you can handle the change with the @change handler. */
     handleTasks(item) {
+      let songs;
       if (item.action === false) {
-          item.action = true;
+        item.action = true;
         this.songArray.push(item);
-        
+
+        songs = this.songArray;
+        store.commit("updateSongs", {
+          songs: songs
+        });
         console.log(this.songArray);
-      } else if (item.action === true) {  
+      } else if (item.action === true) {
         this.songArray.splice(item.id, 1);
         item.action = false;
         console.log(this.songArray);
+        songs = this.songArray;
+        store.commit("updateSongs", {
+          songs: songs
+        });
       }
+
+      //console.log(this.songArray);
     },
     simulateAjax() {
       this.selectedUsers = [{ name: "Patrick" }, { name: "Evan" }];

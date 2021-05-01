@@ -22,7 +22,7 @@ import thumb11 from "@/assets/library/videos/thumb11.jpg";
 import thumb12 from "@/assets/library/videos/thumb12.jpg";
 
 
-//import store from '@/main.js'
+import store from '@/main.js'
 export default {
   name: "SetTheTone",
   data: () => ({
@@ -98,8 +98,14 @@ export default {
   methods: {
     submit: function() {},
     onSelectMultipleImage: function (data) {
-      console.log('fire event onSelectMultipleImage: ', data)
+      //console.log('fire event onSelectMultipleImage: ', data)
       this.imageMultipleSelected = data
+      let videos = this.imageMultipleSelected;
+        store.commit('updateVideos', {
+        videos:videos
+      })
+  console.log(videos)
+
     }
   },
 
