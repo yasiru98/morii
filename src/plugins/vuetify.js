@@ -8,6 +8,7 @@ import Collabs from '@/components/Icons/Collabs.vue'
 import ZoomIn from '@/components/Icons/ZoomIn.vue'
 import ZoomOut from '@/components/Icons/ZoomOut.vue'
 import Pan from '@/components/Icons/Pan.vue'
+import PurpleLogo from '@/components/Icons/PurpleLogo.vue'
 
 Vue.use(Vuetify);
 
@@ -37,6 +38,9 @@ export default new Vuetify({
             },
             pan:{
                 component: Pan
+            },
+            plogo:{
+                component: PurpleLogo
             }
         },
       },
