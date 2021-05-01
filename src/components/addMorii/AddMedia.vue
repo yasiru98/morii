@@ -15,7 +15,7 @@
             <v-spacer></v-spacer>
             <v-col lg="3">
               <router-link to>
-                <v-btn @click="print" sm text color="black">done</v-btn>
+                <v-btn @click="route" sm text color="black">done</v-btn>
               </router-link>
             </v-col>
           </v-row>
@@ -59,8 +59,20 @@ export default {
     submit: function() {
       console.log(this.story);
     },
-    print: function() {
+    route: function() {
       console.log(this.$router.history.current.path);
+      if(this.$router.history.current.path === "/addmorii/addmedia/photos"){
+       this.$router.push('/addmorii/addmedia/videos'); 
+        console.log(true);
+      }
+      else if(this.$router.history.current.path === "/addmorii/addmedia/videos"){
+       this.$router.push('/addmorii/addmedia/music'); 
+        console.log(true);
+      }
+      else if(this.$router.history.current.path === "/addmorii/addmedia/music"){
+       this.$router.push('/addmorii'); 
+        console.log(true);
+      }
     }
   },
   setup() {

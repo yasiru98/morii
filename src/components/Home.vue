@@ -119,7 +119,7 @@ export default {
      //console.log("Who was there: " + this.moriiWho);
      //console.log("Who was there: " + this.moriiDate);
      //console.log("Photos: " + this.moriiPhotos);
-    console.log(this.moriiVideos);
+    console.log(this.moriiObjects);
      //console.log(this.moriiSongs);
     },
     init: function() {
@@ -301,7 +301,9 @@ export default {
     moriiDate: "date",
     moriiPhotos: "photos",
     moriiVideos: "videos",
-    moriiSongs: "songs"
+    moriiSongs: "songs",
+    moriiObjects: "moriis"
+
   }),
   mounted() {
     this.init();
